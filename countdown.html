@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count Down Timer</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        *{
+    margin: 0;padding: 0;
+}
+body{
+    height: 100vh; width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.date{
+    margin: 15px auto;
+    color: white;
+    background-color: black;
+    height: fit-content;
+    padding: 10px;
+    border-radius: 10px;
+}
+.remainingTime{
+    display: flex;
+    margin: 10px auto;
+}
+.input{
+    height: 50px; width: 60px;
+    margin: 5px;
+    border: 1px solid rgb(113, 34, 241);
+    border-radius: 10px;
+    font-size: 1.7rem;
+    text-align: center;
+    outline: 0;
+    color: blue;
+}
+.title{
+    width: fit-content;
+    margin: 0 auto;
+    font-size: 1rem;
+    color: blueviolet;
+}
+.takeInput{
+    width: fit-content;
+    margin: 10px auto;
+    margin-top: 60px;
+    display: flex;
+}
+
+#input{
+    width: 190px;
+    margin: 0 20px;
+    outline: 0;
+    font-size: 1rem;
+    padding: 5px;
+    border-radius: 5px;
+    font-style: italic;
+}
+    </style>
+</head>
+<body>
+    <div class="date">
+
+    </div>
+    <div class="remainingTime">
+        <div class="box">
+            <input type= "text" class="input" readonly>
+            <div class="title">days</div>
+        </div>
+        <div class="box">
+            <input type= "text" class="input" readonly>
+            <div class="title">hours</div>
+        </div>
+        <div class="box">
+            <input type= "text" class="input" readonly>
+            <div class="title">min</div>
+        </div>
+        <div class="box">
+            <input type= "text" class="input" readonly>
+            <div class="title">sec</div>
+        </div>
+    </div>
+    <div class="takeInput">
+        <input type="text" id="input" autofocus placeholder="Enter your Date">
+    </div>
+
+
+    <script>
+        let endDate="25 March 2023 12:00 PM"
+
+
+
+let input=document.querySelectorAll('.input')
+function set_date(){
+    document.querySelector('.date').innerHTML=endDate
+    let end=new Date(endDate)
+    let new1=new Date()
+    let sec=Math.floor((end-new1)/1000)
+    let min=Math.floor(sec/60)
+    let hour=Math.floor(min/60)
+    let day=Math.floor(hour/24)
+
+    input[0].value=day
+    input[1].value=hour-day*24
+    input[2].value=min-hour*60
+    input[3].value=sec-min*60
+}
+set_date()
+setInterval(set_date,1000)
+
+document.querySelector('#input').addEventListener('keyup',function(e){
+    console.log(e.key)
+    if(e.key=="Enter"){
+        console.log(this.value)
+        endDate=this.value
+        set_date()
+        setInterval(set_date,1000)
+        this.value=""
+    }
+})
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
